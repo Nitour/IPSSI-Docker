@@ -1,0 +1,25 @@
+ <!DOCTYPE html>
+ <html>
+ <head>
+    <title>Mon App Docker</title>
+    <style>
+        body { font-family: Arial; margin: 40px; background: #f0f8ff; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; 
+                    background: white; border-radius: 8px; box-shadow: 0 2px 10px 
+rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; text-align: center; }
+        .info-btn { background: #3498db; color: white; padding: 10px 20px; 
+                   border: none; border-radius: 4px; cursor: pointer; }
+    </style>
+ </head>
+ <body>
+    <div class="container">
+        <h1>
+ Bienvenue dans mon app Docker !</h1>
+        <p>Cette application tourne dans un conteneur Docker.</p>
+        <button class="info-btn" onclick="fetch('/info').then(r=>r.json()).then(d=>alert(JSON.stringify(d,null,2)))">
+            Voir les infos système
+        </button>
+    </div>
+ </body>
+    </html>

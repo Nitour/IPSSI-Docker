@@ -1,0 +1,42 @@
+services:
+  proxy:
+    build: ./proxy
+    ports:
+      - "80:80"
+    networks:
+      - public
+      - private
+    depends_on:
+      - app
+
+  app:
+    build: ./app
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+    networks:
+      - private
+    depends_on:
+      - database
+
+  database:
+    image: mysql:8.3
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - private
+
+volumes:
+  db_data:
+
+networks:
+  public:
+  private:
